@@ -31,8 +31,8 @@ const loginLimiter = rateLimit({
 });
 
 router.get('/login', csrfToken, (req, res) => {
-  if (req.session.adminId) return res.redirect('/admin');
-  res.render('admin/login', { error: null });
+  if (req.session.adminId) return res.redirect('/acvvent');
+  res.render('acvvent/login', { error: null });
 });
 
 router.post('/login', loginLimiter, csrfToken, async (req, res, next) => {
@@ -41,14 +41,14 @@ router.post('/login', loginLimiter, csrfToken, async (req, res, next) => {
     const admin = await Admin.findOne({ username: String(username).trim().toLowerCase() });
     const ok = admin && (await admin.comparePassword(String(password)));
     if (!ok) {
-      return res.status(401).render('admin/login', { error: 'Wrong username or password.' });
+      return res.status(401).render('acvvent/login', { error: 'Wrong username or password.' });
     }
     // Prevent session fixation: new session after privilege change.
     req.session.regenerate((err) => {
       if (err) return next(err);
       req.session.adminId = admin._id.toString();
       req.session.adminName = admin.username;
-      res.redirect('/admin');
+      res.redirect('/acvvent');
     });
   } catch (err) {
     next(err);
@@ -56,7 +56,7 @@ router.post('/login', loginLimiter, csrfToken, async (req, res, next) => {
 });
 
 router.post('/logout', requireAuth, (req, res) => {
-  req.session.destroy(() => res.redirect('/admin/login'));
+  req.session.destroy(() => res.redirect('/acvvent/login'));
 });
 
 // Everything below requires a logged-in admin + CSRF token available in views.
@@ -74,7 +74,7 @@ router.get('/', async (req, res, next) => {
         Message.find().sort({ createdAt: -1 }).limit(5).lean(),
         GalleryItem.find().sort({ createdAt: -1 }).limit(6).lean(),
       ]);
-    res.render('admin/dashboard', {
+    res.render('acvvent/dashboard', {
       active: 'dashboard',
       galleryCount,
       videoCount,
@@ -95,26 +95,26 @@ router.get('/gallery', async (req, res, next) => {
     const items = await GalleryItem.find(category ? { category } : {})
       .sort({ order: 1, createdAt: -1 })
       .lean();
-    res.render('admin/gallery-list', { active: 'gallery', items, category, categories: GALLERY_CATEGORIES });
+    res.render('acvvent/gallery-list', { active: 'gallery', items, category, categories: GALLERY_CATEGORIES });
   } catch (err) {
     next(err);
   }
 });
 
 router.get('/gallery/new', (req, res) => {
-  res.render('admin/gallery-form', { active: 'gallery', item: null, categories: GALLERY_CATEGORIES });
+  res.render('acvvent/gallery-form', { active: 'gallery', item: null, categories: GALLERY_CATEGORIES });
 });
 
 router.post('/gallery', imageUpload.single('image'), verifyCsrf, async (req, res, next) => {
   try {
     if (!req.file) {
       flash(req, 'error', 'Please choose an image file.');
-      return res.redirect('/admin/gallery/new');
+      return res.redirect('/acvvent/gallery/new');
     }
     if (!(req.body.title_uz || '').trim()) {
       await deleteUpload(`/uploads/images/${req.file.filename}`);
       flash(req, 'error', 'Title (UZ) is required.');
-      return res.redirect('/admin/gallery/new');
+      return res.redirect('/acvvent/gallery/new');
     }
     await GalleryItem.create({
       title: mlFromBody(req.body, 'title'),
@@ -124,7 +124,7 @@ router.post('/gallery', imageUpload.single('image'), verifyCsrf, async (req, res
       imagePath: `/uploads/images/${req.file.filename}`,
     });
     flash(req, 'success', 'Photo added to the gallery.');
-    res.redirect('/admin/gallery');
+    res.redirect('/acvvent/gallery');
   } catch (err) {
     next(err);
   }
@@ -133,8 +133,8 @@ router.post('/gallery', imageUpload.single('image'), verifyCsrf, async (req, res
 router.get('/gallery/:id/edit', async (req, res, next) => {
   try {
     const item = await GalleryItem.findById(req.params.id).lean();
-    if (!item) return res.redirect('/admin/gallery');
-    res.render('admin/gallery-form', { active: 'gallery', item, categories: GALLERY_CATEGORIES });
+    if (!item) return res.redirect('/acvvent/gallery');
+    res.render('acvvent/gallery-form', { active: 'gallery', item, categories: GALLERY_CATEGORIES });
   } catch (err) {
     next(err);
   }
@@ -143,7 +143,7 @@ router.get('/gallery/:id/edit', async (req, res, next) => {
 router.post('/gallery/:id', imageUpload.single('image'), verifyCsrf, async (req, res, next) => {
   try {
     const item = await GalleryItem.findById(req.params.id);
-    if (!item) return res.redirect('/admin/gallery');
+    if (!item) return res.redirect('/acvvent/gallery');
 
     item.title = mlFromBody(req.body, 'title');
     item.description = mlFromBody(req.body, 'description');
@@ -157,7 +157,7 @@ router.post('/gallery/:id', imageUpload.single('image'), verifyCsrf, async (req,
     }
     await item.save();
     flash(req, 'success', 'Photo updated.');
-    res.redirect('/admin/gallery');
+    res.redirect('/acvvent/gallery');
   } catch (err) {
     next(err);
   }
@@ -169,7 +169,7 @@ router.post('/gallery/:id/delete', verifyCsrf, async (req, res, next) => {
     if (item && !item.isSample) await deleteUpload(item.imagePath);
     if (item && item.isSample && item.imagePath.startsWith('/uploads/')) await deleteUpload(item.imagePath);
     flash(req, 'success', 'Photo deleted.');
-    res.redirect('/admin/gallery');
+    res.redirect('/acvvent/gallery');
   } catch (err) {
     next(err);
   }
@@ -184,14 +184,14 @@ const videoFields = videoUpload.fields([
 router.get('/videos', async (req, res, next) => {
   try {
     const videos = await Video.find().sort({ order: 1, createdAt: -1 }).lean();
-    res.render('admin/video-list', { active: 'videos', videos });
+    res.render('acvvent/video-list', { active: 'videos', videos });
   } catch (err) {
     next(err);
   }
 });
 
 router.get('/videos/new', (req, res) => {
-  res.render('admin/video-form', { active: 'videos', video: null });
+  res.render('acvvent/video-form', { active: 'videos', video: null });
 });
 
 router.post('/videos', videoFields, verifyCsrf, async (req, res, next) => {
@@ -206,21 +206,21 @@ router.post('/videos', videoFields, verifyCsrf, async (req, res, next) => {
 
     if (!doc.title.uz) {
       flash(req, 'error', 'Title (UZ) is required.');
-      return res.redirect('/admin/videos/new');
+      return res.redirect('/acvvent/videos/new');
     }
 
     if (type === 'youtube') {
       const id = extractYoutubeId(req.body.youtubeUrl);
       if (!id) {
         flash(req, 'error', 'Could not read a YouTube link. Paste a full video URL.');
-        return res.redirect('/admin/videos/new');
+        return res.redirect('/acvvent/videos/new');
       }
       doc.youtubeId = id;
     } else {
       const file = req.files?.video?.[0];
       if (!file) {
         flash(req, 'error', 'Please choose a video file (MP4, WebM or MOV).');
-        return res.redirect('/admin/videos/new');
+        return res.redirect('/acvvent/videos/new');
       }
       doc.videoPath = `/uploads/videos/${file.filename}`;
       const poster = req.files?.poster?.[0];
@@ -229,7 +229,7 @@ router.post('/videos', videoFields, verifyCsrf, async (req, res, next) => {
 
     await Video.create(doc);
     flash(req, 'success', 'Video added.');
-    res.redirect('/admin/videos');
+    res.redirect('/acvvent/videos');
   } catch (err) {
     next(err);
   }
@@ -238,8 +238,8 @@ router.post('/videos', videoFields, verifyCsrf, async (req, res, next) => {
 router.get('/videos/:id/edit', async (req, res, next) => {
   try {
     const video = await Video.findById(req.params.id).lean();
-    if (!video) return res.redirect('/admin/videos');
-    res.render('admin/video-form', { active: 'videos', video });
+    if (!video) return res.redirect('/acvvent/videos');
+    res.render('acvvent/video-form', { active: 'videos', video });
   } catch (err) {
     next(err);
   }
@@ -268,7 +268,7 @@ router.post('/videos/:id', videoFields, verifyCsrf, async (req, res, next) => {
         video.type = 'youtube';
       } else if (video.type !== 'youtube') {
         flash(req, 'error', 'Could not read a YouTube link — the video was not changed.');
-        return res.redirect(`/admin/videos/${video._id}/edit`);
+        return res.redirect(`/acvvent/videos/${video._id}/edit`);
       }
     } else {
       const file = req.files?.video?.[0];
@@ -285,13 +285,13 @@ router.post('/videos/:id', videoFields, verifyCsrf, async (req, res, next) => {
       }
       if (video.type !== 'file' && !file) {
         flash(req, 'error', 'To switch this video to an uploaded file, choose a file first.');
-        return res.redirect(`/admin/videos/${video._id}/edit`);
+        return res.redirect(`/acvvent/videos/${video._id}/edit`);
       }
     }
 
     await video.save();
     flash(req, 'success', 'Video updated.');
-    res.redirect('/admin/videos');
+    res.redirect('/acvvent/videos');
   } catch (err) {
     next(err);
   }
@@ -305,7 +305,7 @@ router.post('/videos/:id/delete', verifyCsrf, async (req, res, next) => {
       if (video.posterPath) await deleteUpload(video.posterPath);
     }
     flash(req, 'success', 'Video deleted.');
-    res.redirect('/admin/videos');
+    res.redirect('/acvvent/videos');
   } catch (err) {
     next(err);
   }
@@ -315,14 +315,14 @@ router.post('/videos/:id/delete', verifyCsrf, async (req, res, next) => {
 router.get('/services', async (req, res, next) => {
   try {
     const services = await Service.find().sort({ order: 1, createdAt: -1 }).lean();
-    res.render('admin/service-list', { active: 'services', services });
+    res.render('acvvent/service-list', { active: 'services', services });
   } catch (err) {
     next(err);
   }
 });
 
 router.get('/services/new', (req, res) => {
-  res.render('admin/service-form', { active: 'services', service: null, icons: SERVICE_ICONS });
+  res.render('acvvent/service-form', { active: 'services', service: null, icons: SERVICE_ICONS });
 });
 
 router.post('/services', express.urlencoded({ extended: true }), verifyCsrf, async (req, res, next) => {
@@ -330,7 +330,7 @@ router.post('/services', express.urlencoded({ extended: true }), verifyCsrf, asy
     const title = mlFromBody(req.body, 'title');
     if (!title.uz) {
       flash(req, 'error', 'Title (UZ) is required.');
-      return res.redirect('/admin/services/new');
+      return res.redirect('/acvvent/services/new');
     }
     await Service.create({
       title,
@@ -340,7 +340,7 @@ router.post('/services', express.urlencoded({ extended: true }), verifyCsrf, asy
       active: req.body.active === 'on',
     });
     flash(req, 'success', 'Service created.');
-    res.redirect('/admin/services');
+    res.redirect('/acvvent/services');
   } catch (err) {
     next(err);
   }
@@ -349,8 +349,8 @@ router.post('/services', express.urlencoded({ extended: true }), verifyCsrf, asy
 router.get('/services/:id/edit', async (req, res, next) => {
   try {
     const service = await Service.findById(req.params.id).lean();
-    if (!service) return res.redirect('/admin/services');
-    res.render('admin/service-form', { active: 'services', service, icons: SERVICE_ICONS });
+    if (!service) return res.redirect('/acvvent/services');
+    res.render('acvvent/service-form', { active: 'services', service, icons: SERVICE_ICONS });
   } catch (err) {
     next(err);
   }
@@ -367,7 +367,7 @@ router.post('/services/:id', express.urlencoded({ extended: true }), verifyCsrf,
     service.active = req.body.active === 'on';
     await service.save();
     flash(req, 'success', 'Service updated.');
-    res.redirect('/admin/services');
+    res.redirect('/acvvent/services');
   } catch (err) {
     next(err);
   }
@@ -377,7 +377,7 @@ router.post('/services/:id/delete', verifyCsrf, async (req, res, next) => {
   try {
     await Service.findByIdAndDelete(req.params.id);
     flash(req, 'success', 'Service deleted.');
-    res.redirect('/admin/services');
+    res.redirect('/acvvent/services');
   } catch (err) {
     next(err);
   }
@@ -388,7 +388,7 @@ router.get('/messages', async (req, res, next) => {
   try {
     const filter = req.query.filter === 'unread' ? { read: false } : {};
     const messages = await Message.find(filter).sort({ createdAt: -1 }).limit(200).lean();
-    res.render('admin/messages', { active: 'messages', messages, filter: req.query.filter || 'all' });
+    res.render('acvvent/messages', { active: 'messages', messages, filter: req.query.filter || 'all' });
   } catch (err) {
     next(err);
   }
@@ -401,7 +401,7 @@ router.post('/messages/:id/toggle', verifyCsrf, async (req, res, next) => {
       msg.read = !msg.read;
       await msg.save();
     }
-    res.redirect('/admin/messages');
+    res.redirect('/acvvent/messages');
   } catch (err) {
     next(err);
   }
@@ -411,7 +411,7 @@ router.post('/messages/:id/delete', verifyCsrf, async (req, res, next) => {
   try {
     await Message.findByIdAndDelete(req.params.id);
     flash(req, 'success', 'Message deleted.');
-    res.redirect('/admin/messages');
+    res.redirect('/acvvent/messages');
   } catch (err) {
     next(err);
   }
@@ -421,7 +421,7 @@ router.post('/messages/:id/delete', verifyCsrf, async (req, res, next) => {
 router.get('/settings', async (req, res, next) => {
   try {
     const settings = await Settings.getMain();
-    res.render('admin/settings', { active: 'settings', s: settings });
+    res.render('acvvent/settings', { active: 'settings', s: settings });
   } catch (err) {
     next(err);
   }
@@ -452,7 +452,7 @@ router.post('/settings', express.urlencoded({ extended: true }), verifyCsrf, asy
     await s.save();
     invalidateSettingsCache();
     flash(req, 'success', 'Settings saved.');
-    res.redirect('/admin/settings');
+    res.redirect('/acvvent/settings');
   } catch (err) {
     next(err);
   }
@@ -464,20 +464,20 @@ router.post('/password', express.urlencoded({ extended: true }), verifyCsrf, asy
     const admin = await Admin.findById(req.session.adminId);
     if (!admin || !(await admin.comparePassword(current))) {
       flash(req, 'error', 'Current password is wrong.');
-      return res.redirect('/admin/settings');
+      return res.redirect('/acvvent/settings');
     }
     if (password.length < 8) {
       flash(req, 'error', 'New password must be at least 8 characters.');
-      return res.redirect('/admin/settings');
+      return res.redirect('/acvvent/settings');
     }
     if (password !== confirm) {
       flash(req, 'error', 'New password and confirmation do not match.');
-      return res.redirect('/admin/settings');
+      return res.redirect('/acvvent/settings');
     }
     admin.passwordHash = await Admin.hashPassword(password);
     await admin.save();
     flash(req, 'success', 'Password changed.');
-    res.redirect('/admin/settings');
+    res.redirect('/acvvent/settings');
   } catch (err) {
     next(err);
   }
