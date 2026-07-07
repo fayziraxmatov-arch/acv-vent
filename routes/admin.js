@@ -30,12 +30,12 @@ const loginLimiter = rateLimit({
   message: 'Too many login attempts. Try again in 15 minutes.',
 });
 
-router.get('/login', csrfToken, (req, res) => {
+router.get('/acvvent', csrfToken, (req, res) => {
   if (req.session.adminId) return res.redirect('/acvvent');
   res.render('acvvent/login', { error: null });
 });
 
-router.post('/login', loginLimiter, csrfToken, async (req, res, next) => {
+router.post('/acvvent', loginLimiter, csrfToken, async (req, res, next) => {
   try {
     const { username = '', password = '' } = req.body;
     const admin = await Admin.findOne({ username: String(username).trim().toLowerCase() });
@@ -248,7 +248,7 @@ router.get('/videos/:id/edit', async (req, res, next) => {
 router.post('/videos/:id', videoFields, verifyCsrf, async (req, res, next) => {
   try {
     const video = await Video.findById(req.params.id);
-    if (!video) return res.redirect('/admin/videos');
+    if (!video) return res.redirect('/acvvent/videos');
 
     video.title = mlFromBody(req.body, 'title');
     video.description = mlFromBody(req.body, 'description');
@@ -359,7 +359,7 @@ router.get('/services/:id/edit', async (req, res, next) => {
 router.post('/services/:id', express.urlencoded({ extended: true }), verifyCsrf, async (req, res, next) => {
   try {
     const service = await Service.findById(req.params.id);
-    if (!service) return res.redirect('/admin/services');
+    if (!service) return res.redirect('/acvvent/services');
     service.title = mlFromBody(req.body, 'title');
     service.description = mlFromBody(req.body, 'description');
     if (SERVICE_ICONS.includes(req.body.icon)) service.icon = req.body.icon;
