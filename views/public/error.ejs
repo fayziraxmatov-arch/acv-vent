@@ -1,0 +1,13 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="section status-page">
+  <div class="container">
+    <p class="status-code">500</p>
+    <h1><%= t('error.title') %></h1>
+    <p class="lead"><%= t('error.text') %></p>
+    <a class="btn btn-primary" href="/"><%= t('notfound.back') %></a>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

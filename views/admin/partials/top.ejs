@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title><%= title %> · ACV Admin</title>
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin">
+
+<aside class="a-sidebar">
+  <a class="a-brand" href="/admin">
+    <img src="/img/logo.png" alt="ACV" width="86" height="66">
+    <span>Admin</span>
+  </a>
+  <nav class="a-nav">
+    <a href="/admin" class="<%= active === 'dashboard' ? 'active' : '' %>">
+      <%- include('../../partials/icon', { name: 'grid' }) %> Dashboard
+    </a>
+    <a href="/admin/gallery" class="<%= active === 'gallery' ? 'active' : '' %>">
+      <%- include('../../partials/icon', { name: 'image' }) %> Gallery
+    </a>
+    <a href="/admin/videos" class="<%= active === 'videos' ? 'active' : '' %>">
+      <%- include('../../partials/icon', { name: 'video' }) %> Videos
+    </a>
+    <a href="/admin/services" class="<%= active === 'services' ? 'active' : '' %>">
+      <%- include('../../partials/icon', { name: 'fan' }) %> Services
+    </a>
+    <a href="/admin/messages" class="<%= active === 'messages' ? 'active' : '' %>">
+      <%- include('../../partials/icon', { name: 'inbox' }) %> Messages
+    </a>
+    <a href="/admin/settings" class="<%= active === 'settings' ? 'active' : '' %>">
+      <%- include('../../partials/icon', { name: 'settings' }) %> Settings
+    </a>
+  </nav>
+  <div class="a-sidebar-foot">
+    <a href="/" target="_blank" rel="noopener"><%- include('../../partials/icon', { name: 'external' }) %> View site</a>
+    <form method="POST" action="/admin/logout">
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <button type="submit"><%- include('../../partials/icon', { name: 'logout' }) %> Log out</button>
+    </form>
+  </div>
+</aside>
+
+<div class="a-shell">
+  <header class="a-topbar">
+    <h1><%= title %></h1>
+    <% if (typeof topAction !== 'undefined' && topAction) { %>
+      <a class="abtn abtn-primary" href="<%= topAction.href %>">
+        <%- include('../../partials/icon', { name: 'plus' }) %> <%= topAction.label %>
+      </a>
+    <% } %>
+  </header>
+
+  <% if (flash) { %>
+    <div class="toast toast-<%= flash.type %>" role="status" data-toast>
+      <%- include('../../partials/icon', { name: flash.type === 'success' ? 'check' : 'close' }) %>
+      <span><%= flash.msg %></span>
+    </div>
+  <% } %>
+
+  <main class="a-main">

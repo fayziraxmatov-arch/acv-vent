@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Log in · ACV Admin</title>
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="login-page">
+
+<main class="login-card">
+  <img src="/img/logo.png" alt="ACV" width="120" height="92">
+  <h1>Admin panel</h1>
+  <p class="login-hint">Manage the gallery, videos, services and messages of the ACV website.</p>
+
+  <% if (error) { %><p class="form-error" role="alert"><%= error %></p><% } %>
+
+  <form method="POST" action="/admin/login">
+    <input type="hidden" name="_csrf" value="<%= csrf %>">
+    <div class="a-field">
+      <label for="l-user">Username</label>
+      <input id="l-user" type="text" name="username" required autocomplete="username" autofocus>
+    </div>
+    <div class="a-field">
+      <label for="l-pass">Password</label>
+      <input id="l-pass" type="password" name="password" required autocomplete="current-password">
+    </div>
+    <button class="abtn abtn-primary abtn-wide" type="submit">Log in</button>
+  </form>
+
+  <a class="login-back" href="/">← Back to the site</a>
+</main>
+
+</body>
+</html>

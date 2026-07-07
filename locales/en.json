@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "siteName": "ACV — Ventilation & Air Conditioning",
+    "homeTitle": "ACV — ventilation, air conditioning & cold rooms in Tashkent",
+    "homeDesc": "Design, installation and service of ventilation and air-conditioning systems. Free site visit and estimate across Tashkent."
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "gallery": "Gallery",
+    "videos": "Videos",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "header": { "call": "Call us" },
+  "hero": {
+    "eyebrow": "Ventilation · Air conditioning · Cold rooms",
+    "title1": "Clean air and precise",
+    "title2": "climate for your building",
+    "subtitle": "ACV designs, installs and services air systems in Tashkent. Site visit, measurements and a detailed quote — free of charge.",
+    "cta1": "Request a quote",
+    "cta2": "Our work",
+    "chipCold": "Cold room",
+    "chipWarm": "Office temperature",
+    "card": "Air engineering — with precision"
+  },
+  "stats": {
+    "years": "years of experience",
+    "projects": "completed projects",
+    "area": "m² under service",
+    "response": "hours to respond"
+  },
+  "home": {
+    "servicesEyebrow": "Services",
+    "servicesTitle": "Full cycle for air systems",
+    "servicesLead": "From design to warranty service — one team for everything.",
+    "allServices": "All services",
+    "processEyebrow": "How we work",
+    "processTitle": "4 steps from request to handover",
+    "step1t": "Request & consultation",
+    "step1x": "You reach us by phone or through the site — an engineer clarifies the task.",
+    "step2t": "Site visit & measurements",
+    "step2x": "A specialist takes measurements on site and records the technical conditions.",
+    "step3t": "Design & proposal",
+    "step3x": "We prepare a precise proposal: equipment selection, estimate and timeline.",
+    "step4t": "Installation & handover",
+    "step4x": "We complete the work on schedule, tune the system and hand over the site.",
+    "galleryEyebrow": "Gallery",
+    "galleryTitle": "Our latest projects",
+    "galleryLead": "Snapshots from installations and finished systems.",
+    "allGallery": "Full gallery",
+    "videosEyebrow": "Videos",
+    "videosTitle": "See the process with your own eyes",
+    "allVideos": "All videos",
+    "whyEyebrow": "Why ACV",
+    "whyTitle": "Why clients choose us",
+    "why1t": "Engineering approach",
+    "why1x": "Calculations for every site: air exchange, capacity, noise level.",
+    "why2t": "Official warranty",
+    "why2x": "Written warranty on both equipment and installation work.",
+    "why3t": "In-house service team",
+    "why3x": "We stay with you after installation: maintenance, diagnostics and repair.",
+    "why4t": "Reliable deadlines",
+    "why4x": "A deadline fixed in the contract is a commitment for us.",
+    "ctaTitle": "Have a project in mind?",
+    "ctaText": "Leave your number — our engineer will call you today with a free consultation.",
+    "ctaBtn": "Send"
+  },
+  "services": {
+    "pageTitle": "Services",
+    "lead": "The full spectrum of ventilation, air conditioning and cold rooms: design, supply, installation and service.",
+    "empty": "The list of services is coming soon."
+  },
+  "gallery": {
+    "pageTitle": "Gallery",
+    "lead": "Completed sites, installation process and equipment — in photos.",
+    "all": "All",
+    "empty": "No photos in this section yet.",
+    "categories": {
+      "ventilation": "Ventilation",
+      "conditioning": "Air conditioning",
+      "coldroom": "Cold rooms",
+      "installation": "Installation",
+      "service": "Service",
+      "office": "Office"
+    }
+  },
+  "videos": {
+    "pageTitle": "Videos",
+    "lead": "Installation process, site overviews and results — on video.",
+    "empty": "No videos added yet.",
+    "play": "Play video"
+  },
+  "about": {
+    "pageTitle": "About us",
+    "lead": "ACV is an engineering company for air systems.",
+    "storyEyebrow": "Company",
+    "storyTitle": "We work with air — with engineering precision",
+    "story1": "ACV designs, installs and maintains ventilation and air-conditioning systems for offices, retail spaces, production facilities and residential buildings.",
+    "story2": "Our principle is simple: accurate calculations, quality equipment and tidy installation. That is why most of our clients come to us by referral.",
+    "valuesEyebrow": "Values",
+    "valuesTitle": "4 principles our work stands on",
+    "value1t": "Precision",
+    "value1x": "Precision in calculations and deadlines is the foundation of every project.",
+    "value2t": "Quality",
+    "value2x": "Only trusted brands and proven installation technology.",
+    "value3t": "Transparency",
+    "value3x": "The estimate and the process are always in front of you — no hidden costs.",
+    "value4t": "Responsibility",
+    "value4x": "We stand behind every delivered system with warranty and service.",
+    "ctaBtn": "Get in touch"
+  },
+  "contact": {
+    "pageTitle": "Contact",
+    "lead": "Have a question? Write or call — we answer fast.",
+    "formTitle": "Leave a message",
+    "name": "Your name",
+    "phone": "Your phone",
+    "email": "Email (optional)",
+    "message": "Your message",
+    "send": "Send",
+    "success": "Your message has been sent! We will contact you shortly.",
+    "errRequired": "Please fill in your name, phone and message.",
+    "infoTitle": "Contacts",
+    "addressLabel": "Address",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "hoursLabel": "Working hours",
+    "socialsLabel": "Social media",
+    "mapTitle": "Find us on the map"
+  },
+  "footer": {
+    "about": "An engineering company for ventilation and air-conditioning systems. Design, installation, service.",
+    "navTitle": "Pages",
+    "servicesTitle": "Services",
+    "contactsTitle": "Contacts",
+    "rights": "All rights reserved."
+  },
+  "notfound": {
+    "title": "Page not found",
+    "text": "The page you are looking for does not exist or has been moved.",
+    "back": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "text": "An unexpected server error occurred. Please try again in a moment."
+  },
+  "common": { "close": "Close", "prev": "Previous", "next": "Next" }
+}

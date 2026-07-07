@@ -1,0 +1,89 @@
+<%- include('partials/top', { title: service ? 'Edit service' : 'Add service', topAction: null }) %>
+
+<form class="a-card a-form" method="POST"
+      action="<%= service ? '/admin/services/' + service._id : '/admin/services' %>">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+
+  <div class="a-form-grid">
+    <section>
+      <h2>Content</h2>
+
+      <div class="lang-tabs" role="tablist">
+        <button type="button" class="tab active" data-tab="uz">O'zbekcha</button>
+        <button type="button" class="tab" data-tab="ru">Русский</button>
+        <button type="button" class="tab" data-tab="en">English</button>
+      </div>
+
+      <div class="lang-pane active" data-pane="uz">
+        <div class="a-field">
+          <label for="s-title-uz">Title (UZ) *</label>
+          <input id="s-title-uz" type="text" name="title_uz" required maxlength="160"
+                 value="<%= service ? service.title.uz : '' %>">
+        </div>
+        <div class="a-field">
+          <label for="s-desc-uz">Description (UZ)</label>
+          <textarea id="s-desc-uz" name="description_uz" rows="4" maxlength="600"><%= service ? service.description.uz : '' %></textarea>
+        </div>
+      </div>
+
+      <div class="lang-pane" data-pane="ru">
+        <div class="a-field">
+          <label for="s-title-ru">Title (RU)</label>
+          <input id="s-title-ru" type="text" name="title_ru" maxlength="160"
+                 value="<%= service ? service.title.ru : '' %>">
+        </div>
+        <div class="a-field">
+          <label for="s-desc-ru">Description (RU)</label>
+          <textarea id="s-desc-ru" name="description_ru" rows="4" maxlength="600"><%= service ? service.description.ru : '' %></textarea>
+        </div>
+      </div>
+
+      <div class="lang-pane" data-pane="en">
+        <div class="a-field">
+          <label for="s-title-en">Title (EN)</label>
+          <input id="s-title-en" type="text" name="title_en" maxlength="160"
+                 value="<%= service ? service.title.en : '' %>">
+        </div>
+        <div class="a-field">
+          <label for="s-desc-en">Description (EN)</label>
+          <textarea id="s-desc-en" name="description_en" rows="4" maxlength="600"><%= service ? service.description.en : '' %></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Appearance</h2>
+
+      <p class="a-label">Icon</p>
+      <div class="icon-grid" role="radiogroup">
+        <% for (const ic of icons) { %>
+          <label class="icon-opt">
+            <input type="radio" name="icon" value="<%= ic %>"
+                   <%= (service ? service.icon === ic : ic === 'fan') ? 'checked' : '' %>>
+            <span><%- include('../partials/icon', { name: ic }) %></span>
+          </label>
+        <% } %>
+      </div>
+
+      <div class="a-field-row">
+        <div class="a-field">
+          <label for="s-order">Order <span class="a-hint">(lower = shown first)</span></label>
+          <input id="s-order" type="number" name="order" value="<%= service ? service.order : 0 %>">
+        </div>
+        <div class="a-field a-field-check">
+          <label class="check-label">
+            <input type="checkbox" name="active" <%= !service || service.active ? 'checked' : '' %>>
+            <span>Visible on the site</span>
+          </label>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="a-form-actions">
+    <button class="abtn abtn-primary" type="submit"><%= service ? 'Save changes' : 'Add service' %></button>
+    <a class="abtn abtn-ghost" href="/admin/services">Cancel</a>
+  </div>
+</form>
+
+<%- include('partials/bottom') %>

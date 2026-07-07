@@ -1,0 +1,38 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow eyebrow-light"><%= t('nav.services') %></p>
+    <h1><%= t('services.pageTitle') %></h1>
+    <p class="hero-sub"><%= t('services.lead') %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (services.length) { %>
+      <div class="cards-grid grid-3">
+        <% for (const s of services) { %>
+          <article class="service-card service-card-lg rv">
+            <div class="icon-box"><%- include('../partials/icon', { name: s.icon }) %></div>
+            <h3><%= ml(s.title) %></h3>
+            <p><%= ml(s.description) %></p>
+          </article>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="empty"><%- include('../partials/icon', { name: 'fan' }) %><p><%= t('services.empty') %></p></div>
+    <% } %>
+
+    <div class="band band-slim rv">
+      <div class="band-copy">
+        <h2><%= t('home.ctaTitle') %></h2>
+        <p><%= t('home.ctaText') %></p>
+      </div>
+      <a class="btn btn-amber" href="/contact"><%= t('about.ctaBtn') %></a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

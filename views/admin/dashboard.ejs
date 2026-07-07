@@ -1,0 +1,76 @@
+<%- include('partials/top', { title: 'Dashboard', topAction: null }) %>
+
+<div class="stat-cards">
+  <a class="s-card" href="/admin/gallery">
+    <span class="s-ic"><%- include('../partials/icon', { name: 'image' }) %></span>
+    <strong><%= galleryCount %></strong><em>photos in gallery</em>
+  </a>
+  <a class="s-card" href="/admin/videos">
+    <span class="s-ic"><%- include('../partials/icon', { name: 'video' }) %></span>
+    <strong><%= videoCount %></strong><em>videos</em>
+  </a>
+  <a class="s-card" href="/admin/services">
+    <span class="s-ic"><%- include('../partials/icon', { name: 'fan' }) %></span>
+    <strong><%= serviceCount %></strong><em>services</em>
+  </a>
+  <a class="s-card <%= unreadCount ? 's-card-alert' : '' %>" href="/admin/messages?filter=unread">
+    <span class="s-ic"><%- include('../partials/icon', { name: 'inbox' }) %></span>
+    <strong><%= unreadCount %></strong><em>unread messages</em>
+  </a>
+</div>
+
+<div class="a-card">
+  <h2>Quick actions</h2>
+  <div class="quick-actions">
+    <a class="abtn abtn-primary" href="/admin/gallery/new"><%- include('../partials/icon', { name: 'plus' }) %> Add photo</a>
+    <a class="abtn abtn-primary" href="/admin/videos/new"><%- include('../partials/icon', { name: 'plus' }) %> Add video</a>
+    <a class="abtn abtn-ghost" href="/admin/services/new"><%- include('../partials/icon', { name: 'plus' }) %> Add service</a>
+    <a class="abtn abtn-ghost" href="/admin/settings"><%- include('../partials/icon', { name: 'settings' }) %> Edit contacts & stats</a>
+  </div>
+</div>
+
+<div class="a-grid-2">
+  <div class="a-card">
+    <div class="a-card-head">
+      <h2>Latest messages</h2>
+      <a class="a-link" href="/admin/messages">All messages →</a>
+    </div>
+    <% if (latestMessages.length) { %>
+      <table class="a-table">
+        <thead><tr><th>From</th><th>Phone</th><th>Received</th><th></th></tr></thead>
+        <tbody>
+          <% for (const m of latestMessages) { %>
+            <tr class="<%= m.read ? '' : 'row-unread' %>">
+              <td><%= m.name %></td>
+              <td><a href="tel:<%= m.phone.replace(/[^+\d]/g, '') %>"><%= m.phone %></a></td>
+              <td class="td-mono"><%= new Date(m.createdAt).toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) %></td>
+              <td><% if (!m.read) { %><span class="badge badge-blue">new</span><% } %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p class="a-empty">No messages yet. When visitors submit the contact form, they appear here.</p>
+    <% } %>
+  </div>
+
+  <div class="a-card">
+    <div class="a-card-head">
+      <h2>Latest photos</h2>
+      <a class="a-link" href="/admin/gallery">Open gallery →</a>
+    </div>
+    <% if (latestGallery.length) { %>
+      <div class="thumb-strip">
+        <% for (const g of latestGallery) { %>
+          <a href="/admin/gallery/<%= g._id %>/edit" title="<%= g.title.uz %>">
+            <img src="<%= g.imagePath %>" alt="<%= g.title.uz %>" loading="lazy">
+          </a>
+        <% } %>
+      </div>
+    <% } else { %>
+      <p class="a-empty">The gallery is empty. Add the first photo to show your work on the site.</p>
+    <% } %>
+  </div>
+</div>
+
+<%- include('partials/bottom') %>

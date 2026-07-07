@@ -1,0 +1,133 @@
+<%- include('partials/top', { title: 'Settings', topAction: null }) %>
+
+<form class="a-card a-form" method="POST" action="/admin/settings">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+
+  <div class="a-form-grid">
+    <section>
+      <h2>Contacts</h2>
+      <div class="a-field-row">
+        <div class="a-field">
+          <label for="st-phone">Phone (main) *</label>
+          <input id="st-phone" type="text" name="phone" required maxlength="40" value="<%= s.phone %>">
+        </div>
+        <div class="a-field">
+          <label for="st-phone2">Phone (extra)</label>
+          <input id="st-phone2" type="text" name="phone2" maxlength="40" value="<%= s.phone2 %>">
+        </div>
+      </div>
+      <div class="a-field">
+        <label for="st-email">Email *</label>
+        <input id="st-email" type="email" name="email" required maxlength="160" value="<%= s.email %>">
+      </div>
+
+      <h2>Address</h2>
+      <div class="a-field">
+        <label for="st-addr-uz">Address (UZ)</label>
+        <input id="st-addr-uz" type="text" name="address_uz" maxlength="240" value="<%= s.address.uz %>">
+      </div>
+      <div class="a-field">
+        <label for="st-addr-ru">Address (RU)</label>
+        <input id="st-addr-ru" type="text" name="address_ru" maxlength="240" value="<%= s.address.ru %>">
+      </div>
+      <div class="a-field">
+        <label for="st-addr-en">Address (EN)</label>
+        <input id="st-addr-en" type="text" name="address_en" maxlength="240" value="<%= s.address.en %>">
+      </div>
+
+      <h2>Working hours</h2>
+      <div class="a-field">
+        <label for="st-wh-uz">Hours (UZ)</label>
+        <input id="st-wh-uz" type="text" name="workHours_uz" maxlength="160" value="<%= s.workHours.uz %>">
+      </div>
+      <div class="a-field">
+        <label for="st-wh-ru">Hours (RU)</label>
+        <input id="st-wh-ru" type="text" name="workHours_ru" maxlength="160" value="<%= s.workHours.ru %>">
+      </div>
+      <div class="a-field">
+        <label for="st-wh-en">Hours (EN)</label>
+        <input id="st-wh-en" type="text" name="workHours_en" maxlength="160" value="<%= s.workHours.en %>">
+      </div>
+    </section>
+
+    <section>
+      <h2>Social links</h2>
+      <div class="a-field">
+        <label for="st-tg">Telegram</label>
+        <input id="st-tg" type="url" name="telegram" maxlength="240" placeholder="https://t.me/…" value="<%= s.telegram %>">
+      </div>
+      <div class="a-field">
+        <label for="st-ig">Instagram</label>
+        <input id="st-ig" type="url" name="instagram" maxlength="240" placeholder="https://instagram.com/…" value="<%= s.instagram %>">
+      </div>
+      <div class="a-field">
+        <label for="st-fb">Facebook</label>
+        <input id="st-fb" type="url" name="facebook" maxlength="240" placeholder="https://facebook.com/…" value="<%= s.facebook %>">
+      </div>
+      <div class="a-field">
+        <label for="st-yt">YouTube</label>
+        <input id="st-yt" type="url" name="youtube" maxlength="240" placeholder="https://youtube.com/…" value="<%= s.youtube %>">
+      </div>
+
+      <h2>Map</h2>
+      <div class="a-field">
+        <label for="st-map">Google Maps embed URL <span class="a-hint">(Share → Embed a map → copy the src="…" value only)</span></label>
+        <input id="st-map" type="url" name="mapEmbed" maxlength="1000" placeholder="https://www.google.com/maps/embed?pb=…" value="<%= s.mapEmbed %>">
+      </div>
+
+      <h2>Numbers on the home page</h2>
+      <div class="a-field-row">
+        <div class="a-field">
+          <label for="st-years">Years of experience</label>
+          <input id="st-years" type="number" name="stat_years" min="0" value="<%= s.stats.years %>">
+        </div>
+        <div class="a-field">
+          <label for="st-projects">Completed projects</label>
+          <input id="st-projects" type="number" name="stat_projects" min="0" value="<%= s.stats.projects %>">
+        </div>
+      </div>
+      <div class="a-field-row">
+        <div class="a-field">
+          <label for="st-area">Serviced area, m²</label>
+          <input id="st-area" type="number" name="stat_area" min="0" value="<%= s.stats.area %>">
+        </div>
+        <div class="a-field">
+          <label for="st-response">Response time, hours</label>
+          <input id="st-response" type="number" name="stat_response" min="0" value="<%= s.stats.responseHours %>">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="a-form-actions">
+    <button class="abtn abtn-primary" type="submit">Save settings</button>
+  </div>
+</form>
+
+<form class="a-card a-form" method="POST" action="/admin/password">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+  <h2>Change password</h2>
+  <div class="a-form-grid">
+    <section>
+      <div class="a-field">
+        <label for="pw-current">Current password</label>
+        <input id="pw-current" type="password" name="current" required autocomplete="current-password">
+      </div>
+    </section>
+    <section>
+      <div class="a-field">
+        <label for="pw-new">New password <span class="a-hint">(at least 8 characters)</span></label>
+        <input id="pw-new" type="password" name="password" required minlength="8" autocomplete="new-password">
+      </div>
+      <div class="a-field">
+        <label for="pw-confirm">Repeat new password</label>
+        <input id="pw-confirm" type="password" name="confirm" required minlength="8" autocomplete="new-password">
+      </div>
+    </section>
+  </div>
+  <div class="a-form-actions">
+    <button class="abtn abtn-primary" type="submit">Update password</button>
+  </div>
+</form>
+
+<%- include('partials/bottom') %>

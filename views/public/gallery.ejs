@@ -1,0 +1,46 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow eyebrow-light"><%= t('nav.gallery') %></p>
+    <h1><%= t('gallery.pageTitle') %></h1>
+    <p class="hero-sub"><%= t('gallery.lead') %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="chips rv">
+      <a class="chip <%= !category ? 'active' : '' %>" href="/gallery"><%= t('gallery.all') %></a>
+      <% for (const c of categories) { %>
+        <a class="chip <%= category === c ? 'active' : '' %>" href="/gallery?category=<%= c %>">
+          <%= t('gallery.categories.' + c) %>
+        </a>
+      <% } %>
+    </div>
+
+    <% if (items.length) { %>
+      <div class="gallery-grid gallery-grid-page">
+        <% items.forEach((g, i) => { %>
+          <button class="g-item rv" type="button"
+                  data-lightbox="gallery"
+                  data-index="<%= i %>"
+                  data-full="<%= g.imagePath %>"
+                  data-title="<%= ml(g.title) %>"
+                  data-desc="<%= ml(g.description) %>">
+            <img src="<%= g.imagePath %>" alt="<%= ml(g.title) %>" loading="lazy">
+            <span class="g-overlay">
+              <em class="g-cat"><%= t('gallery.categories.' + g.category) %></em>
+              <strong><%= ml(g.title) %></strong>
+            </span>
+          </button>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="empty"><%- include('../partials/icon', { name: 'image' }) %><p><%= t('gallery.empty') %></p></div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,91 @@
+<%- include('partials/top', { title: item ? 'Edit photo' : 'Add photo', topAction: null }) %>
+
+<form class="a-card a-form" method="POST"
+      action="<%= item ? '/admin/gallery/' + item._id : '/admin/gallery' %>"
+      enctype="multipart/form-data">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+
+  <div class="a-form-grid">
+    <section>
+      <h2>Content</h2>
+
+      <div class="lang-tabs" role="tablist">
+        <button type="button" class="tab active" data-tab="uz">O'zbekcha</button>
+        <button type="button" class="tab" data-tab="ru">Русский</button>
+        <button type="button" class="tab" data-tab="en">English</button>
+      </div>
+
+      <div class="lang-pane active" data-pane="uz">
+        <div class="a-field">
+          <label for="g-title-uz">Title (UZ) *</label>
+          <input id="g-title-uz" type="text" name="title_uz" required maxlength="160"
+                 value="<%= item ? item.title.uz : '' %>">
+        </div>
+        <div class="a-field">
+          <label for="g-desc-uz">Description (UZ)</label>
+          <textarea id="g-desc-uz" name="description_uz" rows="3" maxlength="600"><%= item ? item.description.uz : '' %></textarea>
+        </div>
+      </div>
+
+      <div class="lang-pane" data-pane="ru">
+        <div class="a-field">
+          <label for="g-title-ru">Title (RU)</label>
+          <input id="g-title-ru" type="text" name="title_ru" maxlength="160"
+                 value="<%= item ? item.title.ru : '' %>">
+        </div>
+        <div class="a-field">
+          <label for="g-desc-ru">Description (RU)</label>
+          <textarea id="g-desc-ru" name="description_ru" rows="3" maxlength="600"><%= item ? item.description.ru : '' %></textarea>
+        </div>
+      </div>
+
+      <div class="lang-pane" data-pane="en">
+        <div class="a-field">
+          <label for="g-title-en">Title (EN)</label>
+          <input id="g-title-en" type="text" name="title_en" maxlength="160"
+                 value="<%= item ? item.title.en : '' %>">
+        </div>
+        <div class="a-field">
+          <label for="g-desc-en">Description (EN)</label>
+          <textarea id="g-desc-en" name="description_en" rows="3" maxlength="600"><%= item ? item.description.en : '' %></textarea>
+        </div>
+      </div>
+
+      <div class="a-field-row">
+        <div class="a-field">
+          <label for="g-cat">Category</label>
+          <select id="g-cat" name="category">
+            <% for (const c of categories) { %>
+              <option value="<%= c %>" <%= item && item.category === c ? 'selected' : '' %>><%= c %></option>
+            <% } %>
+          </select>
+        </div>
+        <div class="a-field">
+          <label for="g-order">Order <span class="a-hint">(lower = shown first)</span></label>
+          <input id="g-order" type="number" name="order" value="<%= item ? item.order : 0 %>">
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Image</h2>
+      <div class="a-field">
+        <label class="file-drop" for="g-image">
+          <%- include('../partials/icon', { name: 'image' }) %>
+          <span data-file-label><%= item ? 'Choose a new image to replace the current one' : 'Choose an image (JPG, PNG or WebP, up to 10 MB)' %></span>
+        </label>
+        <input id="g-image" class="file-input" type="file" name="image" accept="image/jpeg,image/png,image/webp"
+               data-preview="#g-preview" <%= item ? '' : 'required' %>>
+      </div>
+      <img id="g-preview" class="img-preview <%= item ? '' : 'hidden' %>"
+           src="<%= item ? item.imagePath : '' %>" alt="Preview">
+    </section>
+  </div>
+
+  <div class="a-form-actions">
+    <button class="abtn abtn-primary" type="submit"><%= item ? 'Save changes' : 'Add photo' %></button>
+    <a class="abtn abtn-ghost" href="/admin/gallery">Cancel</a>
+  </div>
+</form>
+
+<%- include('partials/bottom') %>

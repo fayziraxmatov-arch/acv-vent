@@ -1,0 +1,122 @@
+<%- include('partials/top', { title: video ? 'Edit video' : 'Add video', topAction: null }) %>
+
+<form class="a-card a-form" method="POST"
+      action="<%= video ? '/admin/videos/' + video._id : '/admin/videos' %>"
+      enctype="multipart/form-data">
+  <input type="hidden" name="_csrf" value="<%= csrf %>">
+
+  <div class="a-form-grid">
+    <section>
+      <h2>Content</h2>
+
+      <div class="lang-tabs" role="tablist">
+        <button type="button" class="tab active" data-tab="uz">O'zbekcha</button>
+        <button type="button" class="tab" data-tab="ru">Русский</button>
+        <button type="button" class="tab" data-tab="en">English</button>
+      </div>
+
+      <div class="lang-pane active" data-pane="uz">
+        <div class="a-field">
+          <label for="v-title-uz">Title (UZ) *</label>
+          <input id="v-title-uz" type="text" name="title_uz" required maxlength="160"
+                 value="<%= video ? video.title.uz : '' %>">
+        </div>
+        <div class="a-field">
+          <label for="v-desc-uz">Description (UZ)</label>
+          <textarea id="v-desc-uz" name="description_uz" rows="3" maxlength="600"><%= video ? video.description.uz : '' %></textarea>
+        </div>
+      </div>
+
+      <div class="lang-pane" data-pane="ru">
+        <div class="a-field">
+          <label for="v-title-ru">Title (RU)</label>
+          <input id="v-title-ru" type="text" name="title_ru" maxlength="160"
+                 value="<%= video ? video.title.ru : '' %>">
+        </div>
+        <div class="a-field">
+          <label for="v-desc-ru">Description (RU)</label>
+          <textarea id="v-desc-ru" name="description_ru" rows="3" maxlength="600"><%= video ? video.description.ru : '' %></textarea>
+        </div>
+      </div>
+
+      <div class="lang-pane" data-pane="en">
+        <div class="a-field">
+          <label for="v-title-en">Title (EN)</label>
+          <input id="v-title-en" type="text" name="title_en" maxlength="160"
+                 value="<%= video ? video.title.en : '' %>">
+        </div>
+        <div class="a-field">
+          <label for="v-desc-en">Description (EN)</label>
+          <textarea id="v-desc-en" name="description_en" rows="3" maxlength="600"><%= video ? video.description.en : '' %></textarea>
+        </div>
+      </div>
+
+      <div class="a-field">
+        <label for="v-order">Order <span class="a-hint">(lower = shown first)</span></label>
+        <input id="v-order" type="number" name="order" value="<%= video ? video.order : 0 %>">
+      </div>
+    </section>
+
+    <section>
+      <h2>Video source</h2>
+
+      <div class="type-switch" role="radiogroup">
+        <label class="type-opt">
+          <input type="radio" name="type" value="file" data-type-radio
+                 <%= !video || video.type === 'file' ? 'checked' : '' %>>
+          <span>Upload a file</span>
+        </label>
+        <label class="type-opt">
+          <input type="radio" name="type" value="youtube" data-type-radio
+                 <%= video && video.type === 'youtube' ? 'checked' : '' %>>
+          <span>YouTube link</span>
+        </label>
+      </div>
+
+      <div class="type-pane" data-type-pane="file" <%= video && video.type === 'youtube' ? 'hidden' : '' %>>
+        <div class="a-field">
+          <label class="file-drop" for="v-file">
+            <%- include('../partials/icon', { name: 'video' }) %>
+            <span data-file-label>
+              <%= video && video.videoPath ? 'Choose a new file to replace the current one' : 'Choose a video (MP4, WebM or MOV, up to 300 MB)' %>
+            </span>
+          </label>
+          <input id="v-file" class="file-input" type="file" name="video" accept="video/mp4,video/webm,video/quicktime">
+        </div>
+        <% if (video && video.videoPath) { %>
+          <p class="a-hint">Current file: <code><%= video.videoPath %></code></p>
+        <% } %>
+
+        <div class="a-field">
+          <label class="file-drop file-drop-sm" for="v-poster">
+            <%- include('../partials/icon', { name: 'image' }) %>
+            <span data-file-label>Poster image (optional, shown before play)</span>
+          </label>
+          <input id="v-poster" class="file-input" type="file" name="poster" accept="image/jpeg,image/png,image/webp"
+                 data-preview="#v-poster-preview">
+        </div>
+        <img id="v-poster-preview" class="img-preview <%= video && video.posterPath ? '' : 'hidden' %>"
+             src="<%= video && video.posterPath ? video.posterPath : '' %>" alt="Poster preview">
+      </div>
+
+      <div class="type-pane" data-type-pane="youtube" <%= !video || video.type !== 'youtube' ? 'hidden' : '' %>>
+        <div class="a-field">
+          <label for="v-yt">YouTube URL</label>
+          <input id="v-yt" type="url" name="youtubeUrl" placeholder="https://youtu.be/…"
+                 value="<%= video && video.youtubeId ? 'https://youtu.be/' + video.youtubeId : '' %>">
+          <p class="a-hint">Any format works: youtube.com/watch, youtu.be, shorts or embed links.</p>
+        </div>
+        <% if (video && video.youtubeId) { %>
+          <img class="img-preview" src="https://i.ytimg.com/vi/<%= video.youtubeId %>/hqdefault.jpg" alt="YouTube preview">
+        <% } %>
+      </div>
+    </section>
+  </div>
+
+  <div class="a-form-actions">
+    <button class="abtn abtn-primary" type="submit"><%= video ? 'Save changes' : 'Add video' %></button>
+    <a class="abtn abtn-ghost" href="/admin/videos">Cancel</a>
+  </div>
+</form>
+
+<%- include('partials/bottom') %>

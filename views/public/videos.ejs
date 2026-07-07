@@ -1,0 +1,44 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow eyebrow-light"><%= t('nav.videos') %></p>
+    <h1><%= t('videos.pageTitle') %></h1>
+    <p class="hero-sub"><%= t('videos.lead') %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (videos.length) { %>
+      <div class="cards-grid grid-2">
+        <% for (const v of videos) { %>
+          <article class="v-card v-card-lg rv">
+            <div class="v-media">
+              <% if (v.type === 'youtube') { %>
+                <button class="yt-shell" type="button" data-yt="<%= v.youtubeId %>"
+                        aria-label="<%= t('videos.play') %>: <%= ml(v.title) %>">
+                  <img src="https://i.ytimg.com/vi/<%= v.youtubeId %>/hqdefault.jpg" alt="<%= ml(v.title) %>" loading="lazy">
+                  <span class="v-play"><%- include('../partials/icon', { name: 'play' }) %></span>
+                </button>
+              <% } else { %>
+                <video controls preload="metadata" <% if (v.posterPath) { %>poster="<%= v.posterPath %>"<% } %>>
+                  <source src="<%= v.videoPath %>">
+                </video>
+              <% } %>
+            </div>
+            <div class="v-body">
+              <h3><%= ml(v.title) %></h3>
+              <% if (ml(v.description)) { %><p><%= ml(v.description) %></p><% } %>
+            </div>
+          </article>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="empty"><%- include('../partials/icon', { name: 'video' }) %><p><%= t('videos.empty') %></p></div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,11 @@
+node_modules/
+.env
+npm-debug.log*
+
+# User-uploaded media (keep folders, ignore contents)
+public/uploads/images/*
+public/uploads/videos/*
+public/uploads/posters/*
+!public/uploads/images/.gitkeep
+!public/uploads/videos/.gitkeep
+!public/uploads/posters/.gitkeep

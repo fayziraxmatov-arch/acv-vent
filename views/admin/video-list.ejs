@@ -1,0 +1,52 @@
+<%- include('partials/top', { title: 'Videos', topAction: { href: '/admin/videos/new', label: 'Add video' } }) %>
+
+<div class="a-card">
+  <% if (videos.length) { %>
+    <table class="a-table">
+      <thead>
+        <tr><th>Preview</th><th>Title (UZ)</th><th>Type</th><th>Order</th><th>Added</th><th class="th-actions">Actions</th></tr>
+      </thead>
+      <tbody>
+        <% for (const v of videos) { %>
+          <tr>
+            <td>
+              <% if (v.type === 'youtube') { %>
+                <img class="a-thumb" src="https://i.ytimg.com/vi/<%= v.youtubeId %>/default.jpg" alt="" loading="lazy">
+              <% } else if (v.posterPath) { %>
+                <img class="a-thumb" src="<%= v.posterPath %>" alt="" loading="lazy">
+              <% } else { %>
+                <span class="a-thumb a-thumb-empty"><%- include('../partials/icon', { name: 'video' }) %></span>
+              <% } %>
+            </td>
+            <td><strong><%= v.title.uz %></strong></td>
+            <td>
+              <% if (v.type === 'youtube') { %>
+                <span class="badge badge-red">YouTube</span>
+              <% } else { %>
+                <span class="badge badge-green">Uploaded file</span>
+              <% } %>
+            </td>
+            <td class="td-mono"><%= v.order %></td>
+            <td class="td-mono"><%= new Date(v.createdAt).toLocaleDateString('en-GB') %></td>
+            <td class="td-actions">
+              <a class="abtn abtn-ghost abtn-sm" href="/admin/videos/<%= v._id %>/edit">
+                <%- include('../partials/icon', { name: 'edit' }) %> Edit
+              </a>
+              <form method="POST" action="/admin/videos/<%= v._id %>/delete" class="js-confirm"
+                    data-confirm="Delete this video? Uploaded files will be removed from the server.">
+                <input type="hidden" name="_csrf" value="<%= csrf %>">
+                <button class="abtn abtn-danger abtn-sm" type="submit">
+                  <%- include('../partials/icon', { name: 'trash' }) %> Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p class="a-empty">No videos yet. Add an uploaded file or a YouTube link — both work.</p>
+  <% } %>
+</div>
+
+<%- include('partials/bottom') %>

@@ -1,0 +1,235 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <svg class="hero-flow" viewBox="0 0 1440 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="flowGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#47A5FF" stop-opacity="0"/>
+        <stop offset=".5" stop-color="#47A5FF" stop-opacity=".9"/>
+        <stop offset="1" stop-color="#47A5FF" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path class="flow-line f1" d="M-60 140 C 300 90, 620 210, 900 150 S 1380 90, 1520 160"/>
+    <path class="flow-line f2" d="M-60 300 C 260 260, 560 380, 880 310 S 1360 240, 1520 320"/>
+    <path class="flow-line f3" d="M-60 460 C 320 420, 600 540, 920 470 S 1400 410, 1520 480"/>
+    <path class="flow-line f4" d="M-60 580 C 280 550, 640 640, 960 580 S 1380 520, 1520 590"/>
+    <circle class="snow-dot d1" cx="220" cy="120" r="3"/>
+    <circle class="snow-dot d2" cx="1120" cy="90" r="2.4"/>
+    <circle class="snow-dot d3" cx="860" cy="520" r="2.8"/>
+  </svg>
+
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow eyebrow-light"><%= t('hero.eyebrow') %></p>
+      <h1><%= t('hero.title1') %> <span class="grad-text"><%= t('hero.title2') %></span></h1>
+      <p class="hero-sub"><%= t('hero.subtitle') %></p>
+      <div class="hero-cta">
+        <a class="btn btn-amber" href="#request"><%- include('../partials/icon', { name: 'send' }) %> <%= t('hero.cta1') %></a>
+        <a class="btn btn-outline-light" href="/gallery"><%= t('hero.cta2') %></a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card">
+        <img src="/img/logo-full.png" alt="ACV" width="360" height="276">
+        <div class="temp-chip" data-temp-chip
+             data-cold-label="<%= t('hero.chipCold') %>" data-warm-label="<%= t('hero.chipWarm') %>">
+          <%- include('../partials/icon', { name: 'snowflake' }) %>
+          <span data-temp-label><%= t('hero.chipCold') %></span>
+          <strong data-temp-value>−18°C</strong>
+        </div>
+        <p class="hero-card-note"><%= t('hero.card') %></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<div class="container">
+  <div class="stats-bar rv">
+    <div class="stat">
+      <strong class="stat-num" data-count="<%= settings.stats.years %>">0</strong>
+      <span><%= t('stats.years') %></span>
+    </div>
+    <div class="stat">
+      <strong><span class="stat-num" data-count="<%= settings.stats.projects %>">0</span>+</strong>
+      <span><%= t('stats.projects') %></span>
+    </div>
+    <div class="stat">
+      <strong class="stat-num" data-count="<%= settings.stats.area %>">0</strong>
+      <span><%= t('stats.area') %></span>
+    </div>
+    <div class="stat">
+      <strong>≤ <span class="stat-num" data-count="<%= settings.stats.responseHours %>">0</span></strong>
+      <span><%= t('stats.response') %></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head rv">
+      <div>
+        <p class="eyebrow"><%= t('home.servicesEyebrow') %></p>
+        <h2><%= t('home.servicesTitle') %></h2>
+        <p class="lead"><%= t('home.servicesLead') %></p>
+      </div>
+      <a class="btn btn-ghost" href="/services"><%= t('home.allServices') %> <%- include('../partials/icon', { name: 'arrow-right' }) %></a>
+    </div>
+
+    <% if (services.length) { %>
+      <div class="cards-grid grid-3">
+        <% for (const s of services) { %>
+          <article class="service-card rv">
+            <div class="icon-box"><%- include('../partials/icon', { name: s.icon }) %></div>
+            <h3><%= ml(s.title) %></h3>
+            <p><%= ml(s.description) %></p>
+          </article>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="empty rv"><%- include('../partials/icon', { name: 'fan' }) %><p><%= t('services.empty') %></p></div>
+    <% } %>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head rv">
+      <div>
+        <p class="eyebrow"><%= t('home.processEyebrow') %></p>
+        <h2><%= t('home.processTitle') %></h2>
+      </div>
+    </div>
+    <div class="process">
+      <% for (let i = 1; i <= 4; i++) { %>
+        <div class="step rv">
+          <span class="step-num"><%= i %></span>
+          <h3><%= t('home.step' + i + 't') %></h3>
+          <p><%= t('home.step' + i + 'x') %></p>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERY PREVIEW ═══ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head rv">
+      <div>
+        <p class="eyebrow"><%= t('home.galleryEyebrow') %></p>
+        <h2><%= t('home.galleryTitle') %></h2>
+        <p class="lead"><%= t('home.galleryLead') %></p>
+      </div>
+      <a class="btn btn-ghost" href="/gallery"><%= t('home.allGallery') %> <%- include('../partials/icon', { name: 'arrow-right' }) %></a>
+    </div>
+
+    <% if (gallery.length) { %>
+      <div class="gallery-grid">
+        <% gallery.forEach((g, i) => { %>
+          <button class="g-item rv" type="button"
+                  data-lightbox="home"
+                  data-index="<%= i %>"
+                  data-full="<%= g.imagePath %>"
+                  data-title="<%= ml(g.title) %>"
+                  data-desc="<%= ml(g.description) %>">
+            <img src="<%= g.imagePath %>" alt="<%= ml(g.title) %>" loading="lazy">
+            <span class="g-overlay">
+              <em class="g-cat"><%= t('gallery.categories.' + g.category) %></em>
+              <strong><%= ml(g.title) %></strong>
+            </span>
+          </button>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="empty rv"><%- include('../partials/icon', { name: 'image' }) %><p><%= t('gallery.empty') %></p></div>
+    <% } %>
+  </div>
+</section>
+
+<!-- ═══ VIDEOS PREVIEW ═══ -->
+<% if (videos.length) { %>
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head rv">
+      <div>
+        <p class="eyebrow"><%= t('home.videosEyebrow') %></p>
+        <h2><%= t('home.videosTitle') %></h2>
+      </div>
+      <a class="btn btn-ghost" href="/videos"><%= t('home.allVideos') %> <%- include('../partials/icon', { name: 'arrow-right' }) %></a>
+    </div>
+    <div class="cards-grid grid-3">
+      <% for (const v of videos) { %>
+        <a class="v-card rv" href="/videos">
+          <span class="v-media">
+            <% if (v.type === 'youtube') { %>
+              <img src="https://i.ytimg.com/vi/<%= v.youtubeId %>/hqdefault.jpg" alt="<%= ml(v.title) %>" loading="lazy">
+            <% } else if (v.posterPath) { %>
+              <img src="<%= v.posterPath %>" alt="<%= ml(v.title) %>" loading="lazy">
+            <% } %>
+            <span class="v-play"><%- include('../partials/icon', { name: 'play' }) %></span>
+          </span>
+          <span class="v-body"><strong><%= ml(v.title) %></strong></span>
+        </a>
+      <% } %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ═══ WHY ACV ═══ -->
+<section class="section">
+  <div class="container why-grid">
+    <div class="why-copy rv">
+      <p class="eyebrow"><%= t('home.whyEyebrow') %></p>
+      <h2><%= t('home.whyTitle') %></h2>
+      <p class="lead"><%= t('about.story2') %></p>
+      <a class="btn btn-primary" href="/contact"><%= t('about.ctaBtn') %></a>
+    </div>
+    <div class="why-list">
+      <% for (let i = 1; i <= 4; i++) { %>
+        <div class="why-item rv">
+          <span class="why-check"><%- include('../partials/icon', { name: 'check' }) %></span>
+          <div>
+            <h3><%= t('home.why' + i + 't') %></h3>
+            <p><%= t('home.why' + i + 'x') %></p>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUICK REQUEST ═══ -->
+<section class="section" id="request">
+  <div class="container">
+    <div class="band rv">
+      <div class="band-copy">
+        <h2><%= t('home.ctaTitle') %></h2>
+        <p><%= t('home.ctaText') %></p>
+        <a class="band-phone" href="tel:<%= settings.phone.replace(/[^+\d]/g, '') %>">
+          <%- include('../partials/icon', { name: 'phone' }) %> <%= settings.phone %>
+        </a>
+      </div>
+      <form class="band-form" method="POST" action="/quick-request">
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label>
+          <span><%= t('contact.name') %></span>
+          <input type="text" name="name" required maxlength="120" autocomplete="name">
+        </label>
+        <label>
+          <span><%= t('contact.phone') %></span>
+          <input type="tel" name="phone" required maxlength="40" autocomplete="tel" placeholder="+998">
+        </label>
+        <button class="btn btn-amber" type="submit"><%- include('../partials/icon', { name: 'send' }) %> <%= t('home.ctaBtn') %></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

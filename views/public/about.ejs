@@ -1,0 +1,51 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow eyebrow-light"><%= t('nav.about') %></p>
+    <h1><%= t('about.pageTitle') %></h1>
+    <p class="hero-sub"><%= t('about.lead') %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container about-grid">
+    <div class="about-copy rv">
+      <p class="eyebrow"><%= t('about.storyEyebrow') %></p>
+      <h2><%= t('about.storyTitle') %></h2>
+      <p><%= t('about.story1') %></p>
+      <p><%= t('about.story2') %></p>
+      <a class="btn btn-primary" href="/contact"><%= t('about.ctaBtn') %></a>
+    </div>
+    <div class="about-visual rv">
+      <img src="/img/logo-full.png" alt="ACV" width="380" height="291">
+      <div class="mini-chip chip-a"><strong><%= settings.stats.years %></strong> <%= t('stats.years') %></div>
+      <div class="mini-chip chip-b"><strong><%= settings.stats.projects %>+</strong> <%= t('stats.projects') %></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head rv">
+      <div>
+        <p class="eyebrow"><%= t('about.valuesEyebrow') %></p>
+        <h2><%= t('about.valuesTitle') %></h2>
+      </div>
+    </div>
+    <div class="cards-grid grid-4">
+      <% for (let i = 1; i <= 4; i++) { %>
+        <article class="service-card rv">
+          <div class="icon-box">
+            <%- include('../partials/icon', { name: ['thermometer','shield','blueprint','wrench'][i - 1] }) %>
+          </div>
+          <h3><%= t('about.value' + i + 't') %></h3>
+          <p><%= t('about.value' + i + 'x') %></p>
+        </article>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

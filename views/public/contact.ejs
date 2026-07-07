@@ -1,0 +1,98 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow eyebrow-light"><%= t('nav.contact') %></p>
+    <h1><%= t('contact.pageTitle') %></h1>
+    <p class="hero-sub"><%= t('contact.lead') %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-grid">
+    <div class="form-card rv">
+      <h2><%= t('contact.formTitle') %></h2>
+      <% if (formError) { %><p class="form-error" role="alert"><%= formError %></p><% } %>
+      <form method="POST" action="/contact" novalidate>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="field">
+          <label for="c-name"><%= t('contact.name') %> *</label>
+          <input id="c-name" type="text" name="name" required maxlength="120"
+                 autocomplete="name" value="<%= old.name || '' %>">
+        </div>
+        <div class="field">
+          <label for="c-phone"><%= t('contact.phone') %> *</label>
+          <input id="c-phone" type="tel" name="phone" required maxlength="40"
+                 autocomplete="tel" placeholder="+998" value="<%= old.phone || '' %>">
+        </div>
+        <div class="field">
+          <label for="c-email"><%= t('contact.email') %></label>
+          <input id="c-email" type="email" name="email" maxlength="160"
+                 autocomplete="email" value="<%= old.email || '' %>">
+        </div>
+        <div class="field">
+          <label for="c-message"><%= t('contact.message') %> *</label>
+          <textarea id="c-message" name="message" rows="5" required maxlength="3000"><%= old.text || '' %></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">
+          <%- include('../partials/icon', { name: 'send' }) %> <%= t('contact.send') %>
+        </button>
+      </form>
+    </div>
+
+    <aside class="info-card rv">
+      <h2><%= t('contact.infoTitle') %></h2>
+
+      <% if (ml(settings.address)) { %>
+        <div class="info-row">
+          <span class="info-ic"><%- include('../partials/icon', { name: 'pin' }) %></span>
+          <div><em><%= t('contact.addressLabel') %></em><strong><%= ml(settings.address) %></strong></div>
+        </div>
+      <% } %>
+
+      <div class="info-row">
+        <span class="info-ic"><%- include('../partials/icon', { name: 'phone' }) %></span>
+        <div>
+          <em><%= t('contact.phoneLabel') %></em>
+          <strong><a href="tel:<%= settings.phone.replace(/[^+\d]/g, '') %>"><%= settings.phone %></a></strong>
+          <% if (settings.phone2) { %>
+            <strong><a href="tel:<%= settings.phone2.replace(/[^+\d]/g, '') %>"><%= settings.phone2 %></a></strong>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <span class="info-ic"><%- include('../partials/icon', { name: 'mail' }) %></span>
+        <div><em><%= t('contact.emailLabel') %></em><strong><a href="mailto:<%= settings.email %>"><%= settings.email %></a></strong></div>
+      </div>
+
+      <% if (ml(settings.workHours)) { %>
+        <div class="info-row">
+          <span class="info-ic"><%- include('../partials/icon', { name: 'clock' }) %></span>
+          <div><em><%= t('contact.hoursLabel') %></em><strong><%= ml(settings.workHours) %></strong></div>
+        </div>
+      <% } %>
+
+      <% if (settings.telegram || settings.instagram || settings.facebook || settings.youtube) { %>
+        <em class="info-social-label"><%= t('contact.socialsLabel') %></em>
+        <div class="f-social">
+          <% if (settings.telegram) { %><a href="<%= settings.telegram %>" target="_blank" rel="noopener" aria-label="Telegram"><%- include('../partials/icon', { name: 'telegram' }) %></a><% } %>
+          <% if (settings.instagram) { %><a href="<%= settings.instagram %>" target="_blank" rel="noopener" aria-label="Instagram"><%- include('../partials/icon', { name: 'instagram' }) %></a><% } %>
+          <% if (settings.facebook) { %><a href="<%= settings.facebook %>" target="_blank" rel="noopener" aria-label="Facebook"><%- include('../partials/icon', { name: 'facebook' }) %></a><% } %>
+          <% if (settings.youtube) { %><a href="<%= settings.youtube %>" target="_blank" rel="noopener" aria-label="YouTube"><%- include('../partials/icon', { name: 'youtube' }) %></a><% } %>
+        </div>
+      <% } %>
+    </aside>
+  </div>
+
+  <% if (settings.mapEmbed) { %>
+    <div class="container map-wrap rv">
+      <h2 class="map-title"><%= t('contact.mapTitle') %></h2>
+      <iframe src="<%= settings.mapEmbed %>" loading="lazy" title="<%= t('contact.mapTitle') %>"
+              referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  <% } %>
+</section>
+
+<%- include('../partials/footer') %>

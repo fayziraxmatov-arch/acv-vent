@@ -1,0 +1,48 @@
+<%- include('partials/top', { title: 'Gallery', topAction: { href: '/admin/gallery/new', label: 'Add photo' } }) %>
+
+<div class="chips chips-admin">
+  <a class="chip <%= !category ? 'active' : '' %>" href="/admin/gallery">All</a>
+  <% for (const c of categories) { %>
+    <a class="chip <%= category === c ? 'active' : '' %>" href="/admin/gallery?category=<%= c %>"><%= c %></a>
+  <% } %>
+</div>
+
+<div class="a-card">
+  <% if (items.length) { %>
+    <table class="a-table">
+      <thead>
+        <tr><th>Photo</th><th>Title (UZ)</th><th>Category</th><th>Order</th><th>Added</th><th class="th-actions">Actions</th></tr>
+      </thead>
+      <tbody>
+        <% for (const g of items) { %>
+          <tr>
+            <td><img class="a-thumb" src="<%= g.imagePath %>" alt="" loading="lazy"></td>
+            <td>
+              <strong><%= g.title.uz %></strong>
+              <% if (g.isSample) { %> <span class="badge badge-gray">sample</span><% } %>
+            </td>
+            <td><span class="badge badge-blue"><%= g.category %></span></td>
+            <td class="td-mono"><%= g.order %></td>
+            <td class="td-mono"><%= new Date(g.createdAt).toLocaleDateString('en-GB') %></td>
+            <td class="td-actions">
+              <a class="abtn abtn-ghost abtn-sm" href="/admin/gallery/<%= g._id %>/edit">
+                <%- include('../partials/icon', { name: 'edit' }) %> Edit
+              </a>
+              <form method="POST" action="/admin/gallery/<%= g._id %>/delete" class="js-confirm"
+                    data-confirm="Delete this photo? The image file will be removed too.">
+                <input type="hidden" name="_csrf" value="<%= csrf %>">
+                <button class="abtn abtn-danger abtn-sm" type="submit">
+                  <%- include('../partials/icon', { name: 'trash' }) %> Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p class="a-empty">No photos <%= category ? 'in this category' : 'yet' %>. Click "Add photo" to upload the first one.</p>
+  <% } %>
+</div>
+
+<%- include('partials/bottom') %>

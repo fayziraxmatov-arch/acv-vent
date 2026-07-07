@@ -1,0 +1,53 @@
+<a class="skip-link" href="#main"><%= t('nav.home') %></a>
+
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="ACV">
+      <img src="/img/logo.png" alt="ACV" width="120" height="92">
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Main">
+      <a href="/" class="<%= isActive('/') ? 'active' : '' %>"><%= t('nav.home') %></a>
+      <a href="/services" class="<%= isActive('/services') ? 'active' : '' %>"><%= t('nav.services') %></a>
+      <a href="/gallery" class="<%= isActive('/gallery') ? 'active' : '' %>"><%= t('nav.gallery') %></a>
+      <a href="/videos" class="<%= isActive('/videos') ? 'active' : '' %>"><%= t('nav.videos') %></a>
+      <a href="/about" class="<%= isActive('/about') ? 'active' : '' %>"><%= t('nav.about') %></a>
+      <a href="/contact" class="<%= isActive('/contact') ? 'active' : '' %>"><%= t('nav.contact') %></a>
+    </nav>
+
+    <div class="header-actions">
+      <details class="lang" data-lang>
+        <summary>
+          <%- include('icon', { name: 'globe' }) %>
+          <span><%= lang.toUpperCase() %></span>
+        </summary>
+        <div class="lang-menu">
+          <% for (const code of langs) { %>
+            <a href="/lang/<%= code %>?back=<%= encodeURIComponent(currentUrl) %>"
+               class="<%= code === lang ? 'current' : '' %>">
+              <%= code === 'uz' ? "O'zbekcha" : code === 'ru' ? 'Русский' : 'English' %>
+            </a>
+          <% } %>
+        </div>
+      </details>
+
+      <a class="btn btn-primary btn-sm header-call" href="tel:<%= settings.phone.replace(/[^+\d]/g, '') %>">
+        <%- include('icon', { name: 'phone' }) %>
+        <span><%= settings.phone %></span>
+      </a>
+
+      <button class="burger" data-burger aria-label="Menu" aria-expanded="false" aria-controls="mainNav">
+        <%- include('icon', { name: 'menu' }) %>
+      </button>
+    </div>
+  </div>
+</header>
+
+<% if (flash) { %>
+  <div class="toast toast-<%= flash.type %>" role="status" data-toast>
+    <%- include('icon', { name: flash.type === 'success' ? 'check' : 'close' }) %>
+    <span><%= flash.msg %></span>
+  </div>
+<% } %>
+
+<main id="main">

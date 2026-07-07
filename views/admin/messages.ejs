@@ -1,0 +1,55 @@
+<%- include('partials/top', { title: 'Messages', topAction: null }) %>
+
+<div class="chips chips-admin">
+  <a class="chip <%= filter !== 'unread' ? 'active' : '' %>" href="/admin/messages">All</a>
+  <a class="chip <%= filter === 'unread' ? 'active' : '' %>" href="/admin/messages?filter=unread">Unread</a>
+</div>
+
+<div class="a-card">
+  <% if (messages.length) { %>
+    <div class="msg-list">
+      <% for (const m of messages) { %>
+        <article class="msg <%= m.read ? '' : 'msg-unread' %>">
+          <header class="msg-head">
+            <div>
+              <strong><%= m.name %></strong>
+              <% if (!m.read) { %><span class="badge badge-blue">new</span><% } %>
+              <span class="badge badge-gray"><%= m.lang.toUpperCase() %></span>
+            </div>
+            <time class="td-mono"><%= new Date(m.createdAt).toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) %></time>
+          </header>
+
+          <div class="msg-contacts">
+            <a href="tel:<%= m.phone.replace(/[^+\d]/g, '') %>"><%- include('../partials/icon', { name: 'phone' }) %> <%= m.phone %></a>
+            <% if (m.email) { %>
+              <a href="mailto:<%= m.email %>"><%- include('../partials/icon', { name: 'mail' }) %> <%= m.email %></a>
+            <% } %>
+          </div>
+
+          <% if (m.text) { %><p class="msg-text"><%= m.text %></p><% } %>
+
+          <footer class="msg-actions">
+            <form method="POST" action="/admin/messages/<%= m._id %>/toggle">
+              <input type="hidden" name="_csrf" value="<%= csrf %>">
+              <button class="abtn abtn-ghost abtn-sm" type="submit">
+                <%- include('../partials/icon', { name: 'eye' }) %>
+                <%= m.read ? 'Mark as unread' : 'Mark as read' %>
+              </button>
+            </form>
+            <form method="POST" action="/admin/messages/<%= m._id %>/delete" class="js-confirm"
+                  data-confirm="Delete this message permanently?">
+              <input type="hidden" name="_csrf" value="<%= csrf %>">
+              <button class="abtn abtn-danger abtn-sm" type="submit">
+                <%- include('../partials/icon', { name: 'trash' }) %> Delete
+              </button>
+            </form>
+          </footer>
+        </article>
+      <% } %>
+    </div>
+  <% } else { %>
+    <p class="a-empty"><%= filter === 'unread' ? 'No unread messages — inbox zero.' : 'No messages yet. Contact-form and quick-request submissions land here.' %></p>
+  <% } %>
+</div>
+
+<%- include('partials/bottom') %>

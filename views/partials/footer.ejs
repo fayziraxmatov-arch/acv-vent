@@ -1,0 +1,76 @@
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <img class="f-logo" src="/img/logo.png" alt="ACV" width="140" height="107">
+        <p><%= t('footer.about') %></p>
+        <div class="f-social">
+          <% if (settings.telegram) { %><a href="<%= settings.telegram %>" target="_blank" rel="noopener" aria-label="Telegram"><%- include('icon', { name: 'telegram' }) %></a><% } %>
+          <% if (settings.instagram) { %><a href="<%= settings.instagram %>" target="_blank" rel="noopener" aria-label="Instagram"><%- include('icon', { name: 'instagram' }) %></a><% } %>
+          <% if (settings.facebook) { %><a href="<%= settings.facebook %>" target="_blank" rel="noopener" aria-label="Facebook"><%- include('icon', { name: 'facebook' }) %></a><% } %>
+          <% if (settings.youtube) { %><a href="<%= settings.youtube %>" target="_blank" rel="noopener" aria-label="YouTube"><%- include('icon', { name: 'youtube' }) %></a><% } %>
+        </div>
+      </div>
+
+      <nav class="f-col" aria-label="Footer">
+        <h4><%= t('footer.navTitle') %></h4>
+        <a href="/"><%= t('nav.home') %></a>
+        <a href="/services"><%= t('nav.services') %></a>
+        <a href="/gallery"><%= t('nav.gallery') %></a>
+        <a href="/videos"><%= t('nav.videos') %></a>
+        <a href="/about"><%= t('nav.about') %></a>
+        <a href="/contact"><%= t('nav.contact') %></a>
+      </nav>
+
+      <div class="f-col">
+        <h4><%= t('footer.servicesTitle') %></h4>
+        <a href="/gallery?category=ventilation"><%= t('gallery.categories.ventilation') %></a>
+        <a href="/gallery?category=conditioning"><%= t('gallery.categories.conditioning') %></a>
+        <a href="/gallery?category=coldroom"><%= t('gallery.categories.coldroom') %></a>
+        <a href="/gallery?category=installation"><%= t('gallery.categories.installation') %></a>
+        <a href="/gallery?category=service"><%= t('gallery.categories.service') %></a>
+      </div>
+
+      <div class="f-col f-contacts">
+        <h4><%= t('footer.contactsTitle') %></h4>
+        <% if (ml(settings.address)) { %>
+          <p><%- include('icon', { name: 'pin' }) %> <span><%= ml(settings.address) %></span></p>
+        <% } %>
+        <p><%- include('icon', { name: 'phone' }) %> <a href="tel:<%= settings.phone.replace(/[^+\d]/g, '') %>"><%= settings.phone %></a></p>
+        <% if (settings.phone2) { %>
+          <p><%- include('icon', { name: 'phone' }) %> <a href="tel:<%= settings.phone2.replace(/[^+\d]/g, '') %>"><%= settings.phone2 %></a></p>
+        <% } %>
+        <p><%- include('icon', { name: 'mail' }) %> <a href="mailto:<%= settings.email %>"><%= settings.email %></a></p>
+        <% if (ml(settings.workHours)) { %>
+          <p><%- include('icon', { name: 'clock' }) %> <span><%= ml(settings.workHours) %></span></p>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <%= year %> ACV. <%= t('footer.rights') %></span>
+      <span class="f-mark">acv · <%= t('hero.eyebrow') %></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox (filled by /js/main.js) -->
+<div class="lb" data-lightbox-root aria-hidden="true">
+  <button class="lb-btn lb-close" data-lb-close aria-label="<%= t('common.close') %>"><%- include('icon', { name: 'close' }) %></button>
+  <button class="lb-btn lb-prev" data-lb-prev aria-label="<%= t('common.prev') %>"><%- include('icon', { name: 'chev-l' }) %></button>
+  <figure class="lb-stage">
+    <img data-lb-img src="" alt="">
+    <figcaption class="lb-caption">
+      <strong data-lb-title></strong>
+      <span data-lb-desc></span>
+      <em class="lb-counter" data-lb-counter></em>
+    </figcaption>
+  </figure>
+  <button class="lb-btn lb-next" data-lb-next aria-label="<%= t('common.next') %>"><%- include('icon', { name: 'chev-r' }) %></button>
+</div>
+
+<script src="/js/main.js" defer></script>
+</body>
+</html>

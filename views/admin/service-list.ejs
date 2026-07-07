@@ -1,0 +1,43 @@
+<%- include('partials/top', { title: 'Services', topAction: { href: '/admin/services/new', label: 'Add service' } }) %>
+
+<div class="a-card">
+  <% if (services.length) { %>
+    <table class="a-table">
+      <thead>
+        <tr><th>Icon</th><th>Title (UZ)</th><th>Status</th><th>Order</th><th class="th-actions">Actions</th></tr>
+      </thead>
+      <tbody>
+        <% for (const s of services) { %>
+          <tr class="<%= s.active ? '' : 'row-muted' %>">
+            <td><span class="a-icon-cell"><%- include('../partials/icon', { name: s.icon }) %></span></td>
+            <td><strong><%= s.title.uz %></strong></td>
+            <td>
+              <% if (s.active) { %>
+                <span class="badge badge-green">visible</span>
+              <% } else { %>
+                <span class="badge badge-gray">hidden</span>
+              <% } %>
+            </td>
+            <td class="td-mono"><%= s.order %></td>
+            <td class="td-actions">
+              <a class="abtn abtn-ghost abtn-sm" href="/admin/services/<%= s._id %>/edit">
+                <%- include('../partials/icon', { name: 'edit' }) %> Edit
+              </a>
+              <form method="POST" action="/admin/services/<%= s._id %>/delete" class="js-confirm"
+                    data-confirm="Delete this service?">
+                <input type="hidden" name="_csrf" value="<%= csrf %>">
+                <button class="abtn abtn-danger abtn-sm" type="submit">
+                  <%- include('../partials/icon', { name: 'trash' }) %> Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p class="a-empty">No services yet. Add the services ACV offers — they appear on the home page and the Services page.</p>
+  <% } %>
+</div>
+
+<%- include('partials/bottom') %>

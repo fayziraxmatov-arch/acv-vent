@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "siteName": "ACV — Ventilyatsiya va konditsionerlash",
+    "homeTitle": "ACV — Toshkentda ventilyatsiya, konditsionerlash va sovuq xonalar",
+    "homeDesc": "Ventilyatsiya va konditsionerlash tizimlarini loyihalash, montaj va servis. Toshkent bo'ylab obyektga bepul chiqish va hisob-kitob."
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "services": "Xizmatlar",
+    "gallery": "Galereya",
+    "videos": "Video",
+    "about": "Biz haqimizda",
+    "contact": "Aloqa"
+  },
+  "header": { "call": "Qo'ng'iroq qilish" },
+  "hero": {
+    "eyebrow": "Ventilyatsiya · Konditsionerlash · Sovuq xonalar",
+    "title1": "Binoingiz uchun toza havo",
+    "title2": "va aniq iqlim",
+    "subtitle": "ACV — Toshkentda havo tizimlarini loyihalash, montaj qilish va servis xizmati. Obyektga chiqish, o'lchov va taklif — bepul.",
+    "cta1": "Ariza qoldirish",
+    "cta2": "Bajarilgan ishlar",
+    "chipCold": "Sovuq xona",
+    "chipWarm": "Ofis harorati",
+    "card": "Havo muhandisligi — aniqlik bilan"
+  },
+  "stats": {
+    "years": "yillik tajriba",
+    "projects": "bajarilgan obyekt",
+    "area": "m² xizmatda",
+    "response": "soat ichida javob"
+  },
+  "home": {
+    "servicesEyebrow": "Xizmatlar",
+    "servicesTitle": "Havo tizimlari bo'yicha to'liq sikl",
+    "servicesLead": "Loyihalashdan kafolatli servisgacha — hammasi bir jamoada.",
+    "allServices": "Barcha xizmatlar",
+    "processEyebrow": "Ish tartibi",
+    "processTitle": "So'rovdan topshirishgacha 4 bosqich",
+    "step1t": "So'rov va konsultatsiya",
+    "step1x": "Telefon yoki sayt orqali murojaat qilasiz — muhandis ehtiyojingizni aniqlaydi.",
+    "step2t": "Obyektga chiqish va o'lchov",
+    "step2x": "Mutaxassis joyida o'lchov o'tkazadi va texnik shartlarni belgilaydi.",
+    "step3t": "Loyiha va taklif",
+    "step3x": "Uskuna tanlovi, smeta va muddatlar bilan aniq taklif tayyorlaymiz.",
+    "step4t": "Montaj va topshirish",
+    "step4x": "Ishlarni kelishilgan muddatda bajarib, tizimni sozlab topshiramiz.",
+    "galleryEyebrow": "Galereya",
+    "galleryTitle": "So'nggi obyektlarimiz",
+    "galleryLead": "Montaj jarayoni va tayyor tizimlardan lavhalar.",
+    "allGallery": "Butun galereya",
+    "videosEyebrow": "Video",
+    "videosTitle": "Jarayonni o'z ko'zingiz bilan ko'ring",
+    "allVideos": "Barcha videolar",
+    "whyEyebrow": "Nega ACV",
+    "whyTitle": "Mijozlar bizni nima uchun tanlaydi",
+    "why1t": "Muhandislik yondashuvi",
+    "why1x": "Har bir obyekt uchun hisob-kitob: havo almashinuvi, quvvat, shovqin darajasi.",
+    "why2t": "Rasmiy kafolat",
+    "why2x": "Uskuna va montaj ishlariga yozma kafolat beramiz.",
+    "why3t": "O'z servis xizmatimiz",
+    "why3x": "Montajdan keyin ham yoningizdamiz: profilaktika, diagnostika va ta'mirlash.",
+    "why4t": "Aniq muddatlar",
+    "why4x": "Shartnomada belgilangan muddat — biz uchun majburiyat.",
+    "ctaTitle": "Loyihangiz bormi?",
+    "ctaText": "Raqamingizni qoldiring — muhandisimiz bugun bog'lanadi va bepul maslahat beradi.",
+    "ctaBtn": "Yuborish"
+  },
+  "services": {
+    "pageTitle": "Xizmatlar",
+    "lead": "Ventilyatsiya, konditsionerlash va sovuq xonalar bo'yicha to'liq spektr: loyihalash, yetkazib berish, montaj va servis.",
+    "empty": "Xizmatlar ro'yxati tez orada qo'shiladi."
+  },
+  "gallery": {
+    "pageTitle": "Galereya",
+    "lead": "Bajarilgan obyektlar, montaj jarayoni va uskunalar — suratlarda.",
+    "all": "Hammasi",
+    "empty": "Bu bo'limda hozircha rasmlar yo'q.",
+    "categories": {
+      "ventilation": "Ventilyatsiya",
+      "conditioning": "Konditsionerlash",
+      "coldroom": "Sovuq xonalar",
+      "installation": "Montaj",
+      "service": "Servis",
+      "office": "Ofis"
+    }
+  },
+  "videos": {
+    "pageTitle": "Video",
+    "lead": "Montaj jarayonlari, obyekt sharhlari va natijalar — video formatda.",
+    "empty": "Hozircha videolar qo'shilmagan.",
+    "play": "Videoni yoqish"
+  },
+  "about": {
+    "pageTitle": "Biz haqimizda",
+    "lead": "ACV — havo tizimlari bo'yicha muhandislik kompaniyasi.",
+    "storyEyebrow": "Kompaniya",
+    "storyTitle": "Havo bilan ishlaymiz — muhandislik aniqligida",
+    "story1": "ACV ofislar, savdo maydonlari, ishlab chiqarish va turar-joy binolari uchun ventilyatsiya hamda konditsionerlash tizimlarini loyihalashtiradi, o'rnatadi va ularga xizmat ko'rsatadi.",
+    "story2": "Tamoyilimiz oddiy: to'g'ri hisob-kitob, sifatli uskuna va ozoda montaj. Shuning uchun mijozlarimizning katta qismi bizga tavsiya orqali keladi.",
+    "valuesEyebrow": "Qadriyatlar",
+    "valuesTitle": "Ishimiz tayanadigan 4 tamoyil",
+    "value1t": "Aniqlik",
+    "value1x": "Hisob-kitoblar va muddatlardagi aniqlik — har bir loyihaning poydevori.",
+    "value2t": "Sifat",
+    "value2x": "Faqat ishonchli brendlar va sinalgan montaj texnologiyalari.",
+    "value3t": "Ochiqlik",
+    "value3x": "Smeta va jarayon doim ko'z oldingizda — yashirin xarajatlarsiz.",
+    "value4t": "Mas'uliyat",
+    "value4x": "Topshirilgan tizim uchun kafolat va servis bilan javob beramiz.",
+    "ctaBtn": "Biz bilan bog'lanish"
+  },
+  "contact": {
+    "pageTitle": "Aloqa",
+    "lead": "Savolingiz bormi? Yozing yoki qo'ng'iroq qiling — tez javob beramiz.",
+    "formTitle": "Xabar qoldiring",
+    "name": "Ismingiz",
+    "phone": "Telefon raqamingiz",
+    "email": "Email (ixtiyoriy)",
+    "message": "Xabaringiz",
+    "send": "Yuborish",
+    "success": "Xabaringiz yuborildi! Tez orada siz bilan bog'lanamiz.",
+    "errRequired": "Iltimos, ism, telefon va xabar maydonlarini to'ldiring.",
+    "infoTitle": "Kontaktlar",
+    "addressLabel": "Manzil",
+    "phoneLabel": "Telefon",
+    "emailLabel": "Email",
+    "hoursLabel": "Ish vaqti",
+    "socialsLabel": "Ijtimoiy tarmoqlar",
+    "mapTitle": "Xaritada joylashuvimiz"
+  },
+  "footer": {
+    "about": "Ventilyatsiya va konditsionerlash tizimlari bo'yicha muhandislik kompaniyasi. Loyihalash, montaj, servis.",
+    "navTitle": "Sahifalar",
+    "servicesTitle": "Xizmatlar",
+    "contactsTitle": "Kontaktlar",
+    "rights": "Barcha huquqlar himoyalangan."
+  },
+  "notfound": {
+    "title": "Sahifa topilmadi",
+    "text": "Siz izlagan sahifa mavjud emas yoki boshqa manzilga ko'chirilgan.",
+    "back": "Bosh sahifaga qaytish"
+  },
+  "error": {
+    "title": "Xatolik yuz berdi",
+    "text": "Serverda kutilmagan xatolik. Birozdan so'ng qayta urinib ko'ring."
+  },
+  "common": { "close": "Yopish", "prev": "Oldingi", "next": "Keyingi" }
+}
